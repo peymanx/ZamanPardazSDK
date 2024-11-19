@@ -22,6 +22,11 @@ namespace ZamanPardazSDK
         // Constants
         private const int UserMessageBase = 0x500;
         private const int CustomMessage = UserMessageBase + 1;
+        LogRecord LastLoggedUser = new LogRecord
+        {
+            EnrollNumber = -1
+        };
+
 
         // Fields
         private int MachineNumber = 1;
@@ -38,20 +43,14 @@ namespace ZamanPardazSDK
             Controls.Add(FaceDevice);
         }
 
-        /// <summary>
-        /// Connects to the device over the network.
-        /// </summary>
-        /// <param name="ipAddress">IP address of the device.</param>
-        /// <param name="port">Port to connect to.</param>
-        /// <param name="password">Optional password (default is 0).</param>
-        /// <returns>True if connected successfully, false otherwise.</returns>
+
         public bool ConnectToDevice(string ipAddress, int port, int password = 0, bool prompt = false)
         {
             // Validate input parameters
             if (string.IsNullOrWhiteSpace(ipAddress) || port <= 0)
             {
-                if(prompt)
-                MessageBox.Show("Invalid IP Address or Port.", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (prompt)
+                    MessageBox.Show("Invalid IP Address or Port.", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
@@ -59,7 +58,6 @@ namespace ZamanPardazSDK
             if (FaceDevice == null)
             {
                 if (prompt)
-
                     MessageBox.Show("Device instance is not initialized.", "Initialization Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
@@ -105,24 +103,6 @@ namespace ZamanPardazSDK
         }
 
 
-        public struct GeneralLogInfo
-        {
-            public int dwTMachineNumber;
-            public int dwEnrollNumber;
-            public int dwEMachineNumber;
-            public int dwVerifyMode;
-            public int dwInout;
-            public int dwEvent;
-            public int dwYear;
-            public int dwMonth;
-            public int dwDay;
-            public int dwHour;
-            public int dwMinute;
-            public int dwSecond;
-        }
-
-   
-
 
         public string GetUserName(int UserID)
         {
@@ -151,8 +131,6 @@ namespace ZamanPardazSDK
         }
 
 
-      
-
         // متد برای خواندن رکوردها و بازگرداندن یک لیست
         public List<LogRecord> GetAllLogData(int deviceNumber)
         {
@@ -166,7 +144,7 @@ namespace ZamanPardazSDK
             bool isReadSuccessful = FaceDevice.ReadAllGLogData(deviceNumber);
             if (!isReadSuccessful)
             {
-               // ShowErrorInfo();
+                // ShowErrorInfo();
                 FaceDevice.EnableDevice(deviceNumber, 1);
                 return logRecords; // لیست خالی در صورت خطا
             }
@@ -228,16 +206,24 @@ namespace ZamanPardazSDK
 
         private void btnConnect(object sender, EventArgs e)
         {
-            lblMessage.Text = "در حال اتصال...";
+            toolDeviceStat.Text = "در حال اتصال...";
 
             string ipAddress = "172.21.60.58"; // Replace with your IP address
             int port = 5005; // Replace with your port
             var stat = ConnectToDevice(ipAddress, port, prompt: false);
             if (stat)
             {
-                lblMessage.Text = "اتصال برقرار  شد";
+                toolDeviceStat.Text = "اتصال برقرار  شد";
+                var data = GetAllLogData(MachineNumber);
+                if (data.Any())
+                {
+                    LastLoggedUser = data.LastOrDefault();
+                }
+                timer1.Enabled = true;
+
 
             }
+
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -261,6 +247,34 @@ namespace ZamanPardazSDK
         {
             var me = GetUserName(2002);
             MessageBox.Show(me);
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            var data = GetAllLogData(MachineNumber);
+            if (data.Any())
+            {
+
+
+                var current = data.LastOrDefault();
+                if (LastLoggedUser!= null && LastLoggedUser.Timestamp != current.Timestamp)
+                {
+                    LastLoggedUser = current;
+                    var username = GetUserName(current.EnrollNumber);
+                    lblMessage.Text = $"{username}";
+                    lblDateTime.Text = $" at {current.Timestamp}";
+                    this.BackColor = Color.Gold;
+
+                    timerFlash.Enabled = true;
+                }
+            }
+        }
+
+        private void timerFlash_Tick(object sender, EventArgs e)
+        {
+            this.BackColor = Color.LightGray;
+            timerFlash.Enabled = false;
+
         }
     }
 }
