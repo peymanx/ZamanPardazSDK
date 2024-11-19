@@ -51,10 +51,11 @@ namespace ZamanPardazSDK
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.Location = new System.Drawing.Point(930, 10);
+            this.button1.Location = new System.Drawing.Point(913, 10);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(85, 72);
+            this.button1.Size = new System.Drawing.Size(102, 83);
             this.button1.TabIndex = 0;
+            this.button1.Text = "اتصال به دستگاه";
             this.button1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.btnConnect);
@@ -80,9 +81,11 @@ namespace ZamanPardazSDK
             // 
             this.pictureBox2.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
             this.pictureBox2.Location = new System.Drawing.Point(0, 0);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(1027, 95);
+            this.pictureBox2.Size = new System.Drawing.Size(1027, 105);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 4;
             this.pictureBox2.TabStop = false;
             // 
@@ -122,6 +125,7 @@ namespace ZamanPardazSDK
             this.lblMessage.TabIndex = 6;
             this.lblMessage.Text = "خوش آمدید";
             this.lblMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblMessage.Click += new System.EventHandler(this.lblMessage_Click);
             // 
             // lblDateTime
             // 
@@ -136,7 +140,7 @@ namespace ZamanPardazSDK
             // 
             // timerFlash
             // 
-            this.timerFlash.Interval = 800;
+            this.timerFlash.Interval = 1200;
             this.timerFlash.Tick += new System.EventHandler(this.timerFlash_Tick);
             // 
             // MainForm

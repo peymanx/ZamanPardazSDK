@@ -283,5 +283,10 @@ namespace ZamanPardazSDK
             timerFlash.Enabled = false;
 
         }
+
+        private void lblMessage_Click(object sender, EventArgs e)
+        {
+            lblMessage.Text = "خوش آمدید";
+        }
     }
 }
