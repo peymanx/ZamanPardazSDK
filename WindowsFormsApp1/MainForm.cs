@@ -15,7 +15,7 @@ using System.Windows.Forms;
 using AxFP_CLOCKLib;
 using System.Threading;
 
-namespace WindowsFormsApp1
+namespace ZamanPardazSDK
 {
     public partial class MainForm : Form
     {
