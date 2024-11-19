@@ -114,5 +114,9 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assembly\AxInterop.FP_CLOCKLib.dll" />
+    <Content Include="Assembly\Interop.FP_CLOCKLib.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
