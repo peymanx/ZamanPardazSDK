@@ -10,6 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using Newtonsoft.Json;
 
 
 using AxFP_CLOCKLib;
@@ -202,29 +204,34 @@ namespace ZamanPardazSDK
             return logRecords;
         }
 
-
-
         private void btnConnect(object sender, EventArgs e)
         {
             toolDeviceStat.Text = "در حال اتصال...";
 
-            string ipAddress = "172.21.60.58"; // Replace with your IP address
-            int port = 5005; // Replace with your port
-            var stat = ConnectToDevice(ipAddress, port, prompt: false);
+            DeviceConnectionInfo connectionInfo;
+            try
+            {
+                connectionInfo = DeviceConfigManager.LoadDeviceConnectionInfo();
+            }
+            catch (FileNotFoundException)
+            {
+                toolDeviceStat.Text = "فایل تنظیمات موجود نیست.";
+                return;
+            }
+
+            var stat = ConnectToDevice(connectionInfo.DeviceConnection.IPAddress, connectionInfo.DeviceConnection.Port, prompt: false);
             if (stat)
             {
-                toolDeviceStat.Text = "اتصال برقرار  شد";
-                var data = GetAllLogData(MachineNumber);
+                toolDeviceStat.Text = "اتصال برقرار شد";
+                var data = GetAllLogData(connectionInfo.DeviceConnection.MachineNumber);
                 if (data.Any())
                 {
                     LastLoggedUser = data.LastOrDefault();
                 }
                 timer1.Enabled = true;
-
-
             }
-
         }
+
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {

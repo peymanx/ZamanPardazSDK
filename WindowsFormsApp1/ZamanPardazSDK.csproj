@@ -36,6 +36,9 @@
     <Reference Include="AxInterop.FP_CLOCKLib">
       <HintPath>F:\Peyman\Desktop\AIFacec#demolong (4)\AIFacec#demolong\FP_CLOCK\bin\Debug\AxInterop.FP_CLOCKLib.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -49,6 +52,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DeviceConfigManager.cs" />
+    <Compile Include="DeviceConnectionInfo.cs" />
     <Compile Include="GeneralLogInfo.cs" />
     <Compile Include="LogRecord.cs" />
     <Compile Include="MainForm.cs">
@@ -72,6 +77,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="device_config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
