@@ -33,8 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AxInterop.FP_CLOCKLib">
-      <HintPath>F:\Peyman\Desktop\AIFacec#demolong (4)\AIFacec#demolong\FP_CLOCK\bin\Debug\AxInterop.FP_CLOCKLib.dll</HintPath>
+    <Reference Include="AxInterop.FP_CLOCKLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Assembly\AxInterop.FP_CLOCKLib.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -95,6 +96,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assembly\AxInterop.FP_CLOCKLib.dll" />
+    <Content Include="Assembly\Interop.FP_CLOCKLib.dll" />
+  </ItemGroup>
+  <ItemGroup>
     <COMReference Include="FPCLOCK_SVRLib">
       <Guid>{4903E1B8-A06D-4CF3-8A57-1583409C030D}</Guid>
       <VersionMajor>1</VersionMajor>
@@ -113,10 +118,6 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Assembly\AxInterop.FP_CLOCKLib.dll" />
-    <Content Include="Assembly\Interop.FP_CLOCKLib.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
